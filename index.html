@@ -1,14 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>D3-Practice</title>
+	<link rel="stylesheet" href="./src/style.css">
 </head>
-<style>
-
-</style>
 <body>
-	<svg id="svg" width="960px" height="960px" viewBox="0 0 960 960" preserveAspectRatio="xMidYMid"></svg>
+	<div id="svgContain">
+		<svg id="svg"  preserveAspectRatio="xMidYMid"></svg>
+	</div>
+	<div class='container'>
+	  <div class='timeline'>
+	    <div class='start'></div>
+	  </div>
+	  <div class='entries'>
+	    <div class='entry project' id='entry0'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2011
+	        </div>
+	        <div class='detail'>
+	          Nike acquired USA
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry study' id='entry1'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2012
+	        </div>
+	        <div class='detail'>
+	          Apple sued Samsung
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry project' id='entry2'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2012
+	        </div>
+	        <div class='detail'>
+	          Adidas sued Nike
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry study' id='entry3'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2014
+	        </div>
+	        <div class='detail'>
+	          Adidas decreased stake of Adidas China
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry life' id='entry4'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	         2014
+	        </div>
+	        <div class='detail'>
+	          McDonald increased stake of USA
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry project' id='entry5'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2015
+	        </div>
+	        <div class='detail'>
+	          KFC decreased stake of KFC China
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry project' id='entry6'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2015
+	        </div>
+	        <div class='detail'>
+	          Alibaba increased stake of China
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry life' id='entry7'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2016
+	        </div>
+	        <div class='detail'>
+	          Tencent increased stake of JD.com
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry life' id='entry8'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2016
+	        </div>
+	        <div class='detail'>
+	          Toyota cooperated with Tesla
+	        </div>
+	      </div>
+	    </div>
+	    <div class='entry life' id='entry9'>
+	      <div class='dot'></div>
+	      <div class='label'>
+	        <div class='time'>
+	          2017
+	        </div>
+	        <div class='detail'>
+	          Geely acquired Tesla
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div id='leftLogo'>
+		<img>
+	</div>
+	<div id='rightLogo'>
+		<img>
+	</div>
+	<div class="loadingBG">
+	    <div class="loading">
+	        <div class="loading-dot"></div>
+	        <div class="loading-dot"></div>
+	        <div class="loading-dot"></div>
+	        <div class="loading-dot"></div>
+	        <div class="loading-dot"></div>
+	        <div class="loading-dot"></div>
+	    </div>
+	</div>
 	<script src='dist/build.js'></script>
 </body>
 </html>
