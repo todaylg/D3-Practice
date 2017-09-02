@@ -86,7 +86,6 @@ function ready(world){
 	path = d3.geoPath().projection(projection);
 	countries = topojson.feature(world, world.objects.countries).features;
 	color = d3.scaleOrdinal(d3.schemeCategory20);
-	console.log(countries);
 
 	var polygon = d3.select("#svg").selectAll("path").data(countries);
 	polygon.enter().append("path").attr("d",path).attr("fill",function(d){return color(d.id);});
@@ -158,7 +157,6 @@ function taskListenr(){
 }
 //事件委托
 function animationTriggle(index){
-	console.log(index);
 	switch (index) {
 		case '0':
 			basicAnimation(8,13);
@@ -239,8 +237,6 @@ function tansitionBegin(i,resolve){
 	    .tween("rotate", function() {
 			var p = d3.geoCentroid(countries[arrCountries[i].first]),
 				r = d3.geoInterpolate(projection.rotate(), [-p[0], -p[1]]);
-			console.log("p:"+p);
-			console.log("r:"+r);
 			return function(t) {
 				projection.rotate(r(t));
 				d3.select("#svg").selectAll("path").attr("d", path);
@@ -252,8 +248,6 @@ function tansitionBegin(i,resolve){
 		    .tween("rotate", function() {
 				var p = d3.geoCentroid(countries[arrCountries[i].last]),
 					r = d3.geoInterpolate(projection.rotate(), [-p[0], -p[1]]);
-				console.log("p:"+p);
-				console.log("r:"+r);
 				return function(t) {
 					projection.rotate(r(t));
 					d3.select("#svg").selectAll("path").attr("d", path);
