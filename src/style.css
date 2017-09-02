@@ -157,28 +157,28 @@
   content: ']';
 }
 
-.entry.life .label {
+.entry.young .label {
   background-color: #e1f0e4;
 }
 
-.entry.life:hover .label {
+.entry.young:hover .label {
   background-color: #d0e8d5;
 }
-.entry.life.active .label {
+.entry.young.active .label {
   background-color: #d0e8d5;
 }
 
-.entry.study .label {
+.entry.purple .label {
   background-color: #e1e8f0;
 }
 
-.entry.study:hover .label {
+.entry.purple:hover .label {
   background-color: #d0dbe8;
 }
-.entry.study.active .label {
+.entry.purple.active .label {
   background-color: #d0dbe8;
 }
-#leftLogo,#rightLogo{
+#leftLogo,#rightLogo,#midLogo{
   opacity: 0;
   position: absolute;
   left: 0;
@@ -189,10 +189,18 @@
   left: 5%;
   transform:translateX(2%);
 }
+
 #rightLogo{
   text-align: right;
   right: 5%;
   transform:translateX(-2%);
+}
+#midLogo{
+  text-align: center;
+  transform:translateY(3%);
+}
+#midLogo img{
+  width: 15%;
 }
 #leftLogo img,#rightLogo img{
   width: 20%;

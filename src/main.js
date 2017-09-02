@@ -9,7 +9,7 @@ var width,height,projection,path,countries,color,worldInfoTemp,
 		last:168
 	},
 	{
-		first:168,
+		first:87,
 		last:87
 	},
 	{
@@ -17,7 +17,7 @@ var width,height,projection,path,countries,color,worldInfoTemp,
 		last:168
 	},
 	{
-		first:168,
+		first:30,
 		last:30
 	},
 	{
@@ -25,7 +25,7 @@ var width,height,projection,path,countries,color,worldInfoTemp,
 		last:168
 	},
 	{
-		first:168,
+		first:30,
 		last:30
 	},
 	{
@@ -45,9 +45,9 @@ var width,height,projection,path,countries,color,worldInfoTemp,
 		last:168
 	},
 	],
-	preloadArr = ['./dist/Adidas.png','./dist/Alibaba.png','./dist/Apple.png','./dist/China.png','./dist/Geely.png','./dist/JD.png','./dist/KFC.png','./dist/Mcdonald.png','./dist/Nike.png','./dist/Samsung.png','./dist/Tencent.png','./dist/Tesla.png','./dist/Toyota.png','./dist/USA.png'];
+	preloadArr = ['./dist/Adidas.png','./dist/Alibaba.png','./dist/Apple.png','./dist/China.png','./dist/Geely.png','./dist/JD.png','./dist/KFC.png','./dist/Mcdonald.png','./dist/Nike.png','./dist/Samsung.png','./dist/Tencent.png','./dist/Tesla.png','./dist/Toyota.png','./dist/USA.png','./dist/Z_Decrease.png','./dist/Z_Increase.png','./dist/Z_Handshake.png','./dist/Z_VS.png'];
 
-function Preload(){
+function preload(){
 	var len = preloadArr.length,preCount=0;
 	for(let i=0;i<len;i++){
 		let imgTemp = new Image();
@@ -57,7 +57,10 @@ function Preload(){
 			if(preCount >= len){
 				//图片预加载完成
 				d3.select('.loadingBG').classed('close',true);
-				setTimeout(init, 500);
+				setTimeout(()=>{
+					d3.select('.loadingBG').remove();
+					init();
+				}, 500);
 			}
 		}
 	}
@@ -69,7 +72,7 @@ function init(){
 		worldInfoTemp = world;
 		ready(world);
 	});
-	//Drag();
+	taskListenr();
 }
 
 function fixWH(){
@@ -89,49 +92,115 @@ function ready(world){
 	polygon.enter().append("path").attr("d",path).attr("fill",function(d){return color(d.id);});
 	taskQueue();
 }
-
+function promiseGenerate(i){
+	return new Promise((resolve, reject) => {
+		tansitionBegin(i,resolve)
+	})
+}
 function taskQueue(){
 	new Promise((resolve, reject) => {
-		Animation1();
+		basicAnimation(8,13);
 		tansitionBegin(0,resolve)
 	})
 	.then((resolve)=>{
-		console.log(1)
-		Animation2();
-		return new Promise((resolve, reject) => {
-			tansitionBegin(1,resolve)
-		})
+		middleAnimation(2,9,17)
+		return promiseGenerate(1);
 	})
 	.then((resolve, reject)=>{
-		console.log(2)
-		return new Promise((resolve, reject) => {
-			tansitionBegin(2,resolve)
-		})
+		middleAnimation(0,8,17);
+		return promiseGenerate(2);
 	})
 	.then((resolve, reject)=>{
-		console.log(3)
-		return new Promise((resolve, reject) => {
-			tansitionBegin(3,resolve)
-		})
+		middleAnimation(1,3,14);//decrease
+		return promiseGenerate(3);
 	})
 	.then((resolve, reject)=>{
-		console.log(4)
-		return new Promise((resolve, reject) => {
-			tansitionBegin(4,resolve)
-		})
+		middleAnimation(7,13,15);//increase
+		return promiseGenerate(4);
 	})
 	.then((resolve, reject)=>{
-		console.log(5)
-		return new Promise((resolve, reject) => {
-			tansitionBegin(5,resolve)
-		})
+		middleAnimation(6,3,14);//decrease
+		return promiseGenerate(5);
 	})
 	.then((resolve, reject)=>{
-		console.log(6)
-		return new Promise((resolve, reject) => {
-			tansitionBegin(6,resolve)
-		})
+		middleAnimation(1,3,15);//increase
+		return promiseGenerate(6);
 	})
+	.then((resolve, reject)=>{
+		middleAnimation(10,5,15);//increase
+		return promiseGenerate(7);
+	})
+	.then((resolve, reject)=>{
+		middleAnimation(12,11,16);
+		return promiseGenerate(8);
+	})
+	.then((resolve, reject)=>{
+		basicAnimation(4,11);
+		return promiseGenerate(9);
+	})
+}
+
+function taskListenr(){
+	d3.select(".entries").on("click", function(e) {
+		var target = d3.event.target;
+		var className = d3.event.target.className;
+		var id;
+		if(className ==='label'){
+			id = target.parentNode.id;
+		}else if(className ==='detail'||className ==='time'){
+			id = target.parentNode.parentNode.id;
+		}
+		if(id){
+			id=id.charAt(id.length-1);
+			animationTriggle(id);
+		}
+	});
+}
+//事件委托
+function animationTriggle(index){
+	console.log(index);
+	switch (index) {
+		case '0':
+			basicAnimation(8,13);
+			tansitionBegin(0);
+			break;
+		case '1':
+			middleAnimation(2,9,17)
+			tansitionBegin(1);
+			break;
+		case '2':
+			middleAnimation(0,8,17);
+			tansitionBegin(2);
+			break;
+		case '3':
+			middleAnimation(1,3,14);//decrease
+			tansitionBegin(3);
+			break;
+		case '4':
+			middleAnimation(7,13,15);//increase
+			tansitionBegin(4);
+			break;
+		case '5':
+			middleAnimation(6,3,14);//decrease
+			tansitionBegin(5);
+			break;
+		case '6':
+			middleAnimation(1,3,15);//increase
+			tansitionBegin(6);
+			break;
+		case '7':
+			middleAnimation(10,5,15);//increase
+			tansitionBegin(7);
+			break;
+		case '8':
+			middleAnimation(12,11,16);
+			tansitionBegin(8);
+			break;
+		case '9':
+			basicAnimation(4,11);
+			tansitionBegin(9);
+			break;
+	}
 }
 
 function Drag(){
@@ -149,12 +218,24 @@ function Drag(){
 	);
 }
 
+function reset(){
+	var t = d3.transition()
+		    .duration(750)
+		    .ease(d3.easeLinear);
+	d3.select("#leftLogo").transition(t)
+	    .style("opacity", "0").style("transform", "translateX(-2%)");
+	d3.select("#rightLogo").transition(t)
+	    .style("opacity", "0").style("transform", "translateX(2%)");
+	d3.select("#midLogo").transition(t)
+	    .style("opacity", "0").style("transform", "translateY(-3%)");
+}
+
 function tansitionBegin(i,resolve){
 	if(i<arrCountries.length){
 		var selectId = "#entry"+i;
 		d3.select(selectId).classed('active',true);
 		d3.transition()
-	    .duration(1250)
+	    .duration(1500)
 	    .tween("rotate", function() {
 			var p = d3.geoCentroid(countries[arrCountries[i].first]),
 				r = d3.geoInterpolate(projection.rotate(), [-p[0], -p[1]]);
@@ -167,7 +248,7 @@ function tansitionBegin(i,resolve){
 		})
 		.on('end',()=>{
 			d3.transition()
-		    .duration(1250)
+		    .duration(1500)
 		    .tween("rotate", function() {
 				var p = d3.geoCentroid(countries[arrCountries[i].last]),
 					r = d3.geoInterpolate(projection.rotate(), [-p[0], -p[1]]);
@@ -179,18 +260,11 @@ function tansitionBegin(i,resolve){
 				};
 			})
 			.on('end',()=>{
-				var t = d3.transition()
-					    .duration(750)
-					    .ease(d3.easeLinear);
-			    d3.select("#leftLogo").transition(t)
-			        .style("opacity", "0").style("transform", "translateX(-2%)");
-			    d3.select("#rightLogo").transition(t)
-			        .style("opacity", "0").style("transform", "translateX(2%)");
+			    reset();
 				setTimeout(()=>{
 					d3.select(selectId).classed('active',false);
-					resolve();
-				}, 2000)
-				
+					if(resolve)resolve();
+				}, 1000)
 			})
 		})
 	}
@@ -198,11 +272,14 @@ function tansitionBegin(i,resolve){
 
 var left = d3.select("#leftLogo");
 var leftImg = d3.select("#leftLogo img");
+var mid = d3.select("#midLogo");
+var midImg = d3.select("#midLogo img");
 var right = d3.select("#rightLogo");
-var rightImg = d3.select("#rightLogo img")
-function Animation1(){
-	leftImg.attr("src", preloadArr[8]);
-	rightImg.attr("src", preloadArr[13]);
+var rightImg = d3.select("#rightLogo img");
+
+function basicAnimation(first,last){
+	leftImg.attr("src", preloadArr[first]);
+	rightImg.attr("src", preloadArr[last]);
 	var t = d3.transition()
 	    .duration(750)
 	    .ease(d3.easeLinear);
@@ -213,18 +290,15 @@ function Animation1(){
 	right.transition(t)
 	    .style("opacity", "1").style("transform", "translateX(0)");
 }
-function Animation2(){
-	leftImg.attr("src", preloadArr[2]);
-	rightImg.attr("src", preloadArr[9]);
 
+function middleAnimation(first,last,middle){
+	basicAnimation(first,last);
+	midImg.attr("src", preloadArr[middle]);
 	var t = d3.transition()
 	    .duration(750)
 	    .ease(d3.easeLinear);
-
-	left.transition(t)
-	    .style("opacity", "1").style("transform", "translateX(0)");
-
-	right.transition(t)
-	    .style("opacity", "1").style("transform", "translateX(0)");
+	mid.transition(t)
+	    .style("opacity", "1").style("transform", "translateY(0)");
 }
-Preload();
+
+preload();
